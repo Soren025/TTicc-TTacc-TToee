@@ -165,6 +165,8 @@ namespace Codari.TTT
 
             this[gridCoordinate, cellCoordinate].SetSelection(selection);
 
+            bool gridWin = false;
+
             foreach (IEnumerable<Coordinate> row in Coordinate.Rows)
             {
                 int rowCount = 0;
@@ -179,6 +181,7 @@ namespace Codari.TTT
 
                 if (rowCount == 3)
                 {
+                    gridWin = true;
 
                     // Remove this `if` if you want to be able to override a grid winner with a new row
                     //if (!this[gridCoordinate].GridWinner.IsSelected())
@@ -191,7 +194,11 @@ namespace Codari.TTT
             }
 
             currentGrid = cellCoordinate;
-            currentTurn = selection == Selection.X ? Selection.O : Selection.X;
+
+            if (!gridWin)
+            {
+                currentTurn = selection == Selection.X ? Selection.O : Selection.X;
+            }
         }
 
         private bool TestForGameWin(Selection team)
