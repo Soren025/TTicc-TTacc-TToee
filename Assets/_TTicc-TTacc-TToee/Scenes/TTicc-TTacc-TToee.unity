@@ -1712,9 +1712,12 @@ MonoBehaviour:
   - {fileID: 413584308}
   - {fileID: 1267013342}
   - {fileID: 1682573353}
-  audioSource: {fileID: 0}
-  yourTurn: {fileID: 8300000, guid: 5b30fb8bbdf63ec439e4279a923139bf, type: 3}
-  notYourTurn: {fileID: 8300000, guid: fb8e92c8ee90d884e94bf3f0c80d41e1, type: 3}
+  yourTurn:
+  - {fileID: 8300000, guid: 5b30fb8bbdf63ec439e4279a923139bf, type: 3}
+  - {fileID: 8300000, guid: 033b0f921818d69438b1433d19efe0ad, type: 3}
+  notYourTurn:
+  - {fileID: 8300000, guid: fb8e92c8ee90d884e94bf3f0c80d41e1, type: 3}
+  - {fileID: 8300000, guid: 8f9a82e97c920614fa45ab16e87bf3d2, type: 3}
   youWin: {fileID: 8300000, guid: c2e0ff688a1f7384c904cba95180ee16, type: 3}
   youLost: {fileID: 8300000, guid: d66d8530d5e7d7f4da6dd0ed1a0fc5ed, type: 3}
   meBackground: {fileID: 255441719}

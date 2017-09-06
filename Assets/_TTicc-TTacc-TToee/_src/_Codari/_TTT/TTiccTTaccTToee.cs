@@ -20,11 +20,9 @@ namespace Codari.TTT
 
         [Header("Audio")]
         [SerializeField]
-        private AudioSource audioSource;
+        private AudioClip[] yourTurn;
         [SerializeField]
-        private AudioClip yourTurn;
-        [SerializeField]
-        private AudioClip notYourTurn;
+        private AudioClip[] notYourTurn;
         [SerializeField]
         private AudioClip youWin;
         [SerializeField]
@@ -181,15 +179,16 @@ namespace Codari.TTT
 
                 if (rowCount == 3)
                 {
-                    gridWin = true;
-
-                    // Remove this `if` if you want to be able to override a grid winner with a new row
-                    //if (!this[gridCoordinate].GridWinner.IsSelected())
+                    if (selection != this[gridCoordinate].GridWinner)
                     {
-                        this[gridCoordinate].SetGridWinner(selection);
+                        // Remove this `if` if you want to be able to override a grid winner with a new row
+                        //if (!this[gridCoordinate].GridWinner.IsSelected())
+                        {
+                            this[gridCoordinate].SetGridWinner(selection);
+                            gridWin = true;
+                            if (TestForGameWin(selection)) return;
+                        }
                     }
-
-                    if (TestForGameWin(selection)) return;
                 }
             }
 
@@ -296,12 +295,12 @@ namespace Codari.TTT
             {
                 if (Player.Me.Team == turn)
                 {
-                    AudioSource.PlayClipAtPoint(yourTurn, Vector3.zero);
+                    AudioSource.PlayClipAtPoint(yourTurn[Random.Range(0, yourTurn.Length)], Vector3.zero);
                     yourTurnLoop = StartCoroutine(YourTurnLoop());
                 }
                 else
                 {
-                    AudioSource.PlayClipAtPoint(notYourTurn, Vector3.zero);
+                    AudioSource.PlayClipAtPoint(notYourTurn[Random.Range(0, notYourTurn.Length)], Vector3.zero);
                     if (yourTurnLoop != null)
                         StopCoroutine(yourTurnLoop);
                 }
@@ -328,7 +327,7 @@ namespace Codari.TTT
             while (true)
             {
                 yield return new WaitForSeconds(30);
-                AudioSource.PlayClipAtPoint(yourTurn, Vector3.zero);
+                AudioSource.PlayClipAtPoint(yourTurn[Random.Range(0, yourTurn.Length)], Vector3.zero);
             }
         }
 
