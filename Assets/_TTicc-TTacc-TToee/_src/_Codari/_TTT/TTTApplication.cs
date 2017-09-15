@@ -9,9 +9,9 @@ using Codari.TTT.Network;
 
 namespace Codari.TTT
 {
-    public class TTiccTTaccTToee : NetworkBehaviour, IEnumerable<Grid>
+    public class TTTApplication : NetworkBehaviour, IEnumerable<Grid>
     {
-        public static TTiccTTaccTToee Instance { get; private set; }
+        public static TTTApplication Instance { get; private set; }
 
         [SerializeField]
         private Text winnerText;
@@ -243,10 +243,10 @@ namespace Codari.TTT
         void LateUpdate()
         {
             meReadyToggle.interactable = isClient && !isPlaying;
-            notMeReadyToggle.isOn = ((Player.NotMe?.IsX ?? false) && xReady) || ((Player.NotMe?.IsO ?? false) && oReady);
+            notMeReadyToggle.isOn = ((TTTPlayer.NotMe?.IsX ?? false) && xReady) || ((TTTPlayer.NotMe?.IsO ?? false) && oReady);
 
-            meIcon.text = Player.Me?.Team.ToString() ?? "?";
-            notMeIcon.text = Player.NotMe?.Team.ToString() ?? "?";
+            meIcon.text = TTTPlayer.Me?.Team.ToString() ?? "?";
+            notMeIcon.text = TTTPlayer.NotMe?.Team.ToString() ?? "?";
 
             winnerText.enabled = currentWinner.IsSelected();
             if (winnerText.enabled)
@@ -254,8 +254,8 @@ namespace Codari.TTT
                 winnerText.text = $"{currentWinner.ToString()}\n\nW\nI\nN\nS";
             }
 
-            meBackground.color = (Player.Me?.IsMyTurn ?? false) ? new Color(.75f, .75f, 0, .5f) : infoBackgroundBase;
-            notMeBackground.color = (Player.NotMe?.IsMyTurn ?? false) ? new Color(.75f, .75f, 0, .5f) : infoBackgroundBase;
+            meBackground.color = (TTTPlayer.Me?.IsMyTurn ?? false) ? new Color(.75f, .75f, 0, .5f) : infoBackgroundBase;
+            notMeBackground.color = (TTTPlayer.NotMe?.IsMyTurn ?? false) ? new Color(.75f, .75f, 0, .5f) : infoBackgroundBase;
         }
 
         #endregion
@@ -280,7 +280,7 @@ namespace Codari.TTT
 
         void UIListener_OnReadyToggle(bool ready)
         {
-            Player.Me.CmdSetReady(ready);
+            TTTPlayer.Me.CmdSetReady(ready);
         }
 
         #endregion
@@ -293,7 +293,7 @@ namespace Codari.TTT
 
             if (turn.IsSelected())
             {
-                if (Player.Me.Team == turn)
+                if (TTTPlayer.Me.Team == turn)
                 {
                     AudioSource.PlayClipAtPoint(yourTurn[Random.Range(0, yourTurn.Length)], Vector3.zero);
                     yourTurnLoop = StartCoroutine(YourTurnLoop());
@@ -313,7 +313,7 @@ namespace Codari.TTT
             
             if (winner.IsSelected())
             {
-                if (Player.Me.Team == winner)
+                if (TTTPlayer.Me.Team == winner)
                     AudioSource.PlayClipAtPoint(youWin, Vector3.zero);
                 else
                     AudioSource.PlayClipAtPoint(youLost, Vector3.zero);

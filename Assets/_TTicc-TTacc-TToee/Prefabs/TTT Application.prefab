@@ -1,0 +1,100 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1163198435888652}
+  m_IsPrefabParent: 1
+--- !u!1 &1163198435888652
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4392753570358976}
+  - component: {fileID: 114960690294104132}
+  - component: {fileID: 114944741905058164}
+  m_Layer: 0
+  m_Name: TTT Application
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4392753570358976
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1163198435888652}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 503, y: 283, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114944741905058164
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1163198435888652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 179
+    i1: 25
+    i2: 159
+    i3: 121
+    i4: 214
+    i5: 242
+    i6: 20
+    i7: 100
+    i8: 90
+    i9: 196
+    i10: 28
+    i11: 118
+    i12: 61
+    i13: 50
+    i14: 220
+    i15: 134
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
+--- !u!114 &114960690294104132
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1163198435888652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 465d313fbb9f1c24584980fa1f58eba7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  winnerText: {fileID: 0}
+  gridsIGuess: []
+  yourTurn: []
+  notYourTurn: []
+  youWin: {fileID: 0}
+  youLost: {fileID: 0}
+  meBackground: {fileID: 0}
+  notMeBackground: {fileID: 0}
+  meColor: {r: 0, g: 0, b: 0, a: 0}
+  notMeColor: {r: 0, g: 0, b: 0, a: 0}
+  meIcon: {fileID: 0}
+  notMeIcon: {fileID: 0}
+  meReadyToggle: {fileID: 0}
+  notMeReadyToggle: {fileID: 0}

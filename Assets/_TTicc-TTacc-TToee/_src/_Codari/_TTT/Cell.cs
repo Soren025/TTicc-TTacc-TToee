@@ -50,8 +50,8 @@ namespace Codari.TTT
 
         void LateUpdate()
         {
-            selectButton.interactable = (Player.Me?.IsMyTurn ?? false)
-                && (grid.IsCurrent || (TTiccTTaccTToee.Instance[TTiccTTaccTToee.Instance.CurrentGrid].IsFull && !grid.IsFull))
+            selectButton.interactable = (TTTPlayer.Me?.IsMyTurn ?? false)
+                && (grid.IsCurrent || (TTTApplication.Instance[TTTApplication.Instance.CurrentGrid].IsFull && !grid.IsFull))
                 && !selection.IsSelected();
         }
 
@@ -61,7 +61,7 @@ namespace Codari.TTT
 
         void UIListener_OnSelectButtonPress()
         {
-            Player.Me.CmdSelectCell(grid.Coordinate, coordinate);
+            TTTPlayer.Me.CmdSelectCell(grid.Coordinate, coordinate);
         }
 
         #endregion
@@ -74,13 +74,13 @@ namespace Codari.TTT
             {
             case Selection.X:
                 selectionText.text = "X";
-                selectionText.color = Player.Me.IsX ? TTiccTTaccTToee.Instance.MeColor : TTiccTTaccTToee.Instance.NotMeColor;
+                selectionText.color = TTTPlayer.Me.IsX ? TTTApplication.Instance.MeColor : TTTApplication.Instance.NotMeColor;
                 selectionText.enabled = true;
                 selectButton.interactable = false;
                 break;
             case Selection.O:
                 selectionText.text = "O";
-                selectionText.color = Player.Me.IsO ? TTiccTTaccTToee.Instance.MeColor : TTiccTTaccTToee.Instance.NotMeColor;
+                selectionText.color = TTTPlayer.Me.IsO ? TTTApplication.Instance.MeColor : TTTApplication.Instance.NotMeColor;
                 selectionText.enabled = true;
                 selectButton.interactable = false;
                 break;

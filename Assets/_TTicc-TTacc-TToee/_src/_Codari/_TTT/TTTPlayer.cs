@@ -1,23 +1,25 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
 
+using Zenject;
+
 using Codari.TTT.Network;
 
 namespace Codari.TTT
 {
     [DisallowMultipleComponent]
-    public sealed class Player : NetworkBehaviour
+    public sealed class TTTPlayer : NetworkBehaviour
     {
-        public static Player Me { get; private set; }
+        public static TTTPlayer Me { get; private set; }
 
-        public static Player NotMe { get; private set; }
+        public static TTTPlayer NotMe { get; private set; }
 
         [SyncVar]
         private Selection team;
 
         public Selection Team => team;
 
-        public Color SelectionColor => IsMe ? TTiccTTaccTToee.Instance.MeColor : TTiccTTaccTToee.Instance.NotMeColor;
+        public Color SelectionColor => IsMe ? TTTApplication.Instance.MeColor : TTTApplication.Instance.NotMeColor;
 
         public bool IsMe => this == Me;
 
@@ -27,24 +29,24 @@ namespace Codari.TTT
 
         public bool IsO => team == Selection.O;
 
-        public bool IsMyTurn => TTiccTTaccTToee.Instance.CurrentTurn == team;
+        public bool IsMyTurn => TTTApplication.Instance.CurrentTurn == team;
 
-        public bool IsReady => TTiccTTaccTToee.Instance.IsReady(team);
+        public bool IsReady => TTTApplication.Instance.IsReady(team);
 
         #region Commands
 
         [Command]
         public void CmdSetReady(bool ready)
         {
-            if (TTiccTTaccTToee.Instance.IsPlaying) return;
-            TTiccTTaccTToee.Instance.SetReady(team, ready);
+            if (TTTApplication.Instance.IsPlaying) return;
+            TTTApplication.Instance.SetReady(team, ready);
         }
 
         [Command]
         public void CmdSelectCell(NetworkCoordinate gridCoordinate, NetworkCoordinate cellCoordinate)
         {
-            if (!TTiccTTaccTToee.Instance.IsPlaying || !IsMyTurn) return;
-            TTiccTTaccTToee.Instance.SelectCell(gridCoordinate, cellCoordinate, team);
+            if (!TTTApplication.Instance.IsPlaying || !IsMyTurn) return;
+            TTTApplication.Instance.SelectCell(gridCoordinate, cellCoordinate, team);
         }
 
         #endregion
@@ -102,5 +104,8 @@ namespace Codari.TTT
 
 
         #endregion
+
+        public sealed class Factory : Factory<TTTPlayer>
+        { }
     }
 }

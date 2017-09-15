@@ -6,5 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_TTicc-TTacc-TToee/Scenes/TTicc-TTacc-TToee.unity
-    guid: 13f6d9f0560e1a84abdf4ebb6819624d
+    path: Assets/_TTicc-TTacc-TToee/Scenes/TTicc-TTacc-TToee Offline.unity
+    guid: cb8c10b3f3f1d0c4498e36078bd5a46f
+  - enabled: 1
+    path: Assets/_TTicc-TTacc-TToee/Scenes/TTicc-TTacc-TToee Online.unity
+    guid: bd74f38e5c33a504eb408af8695cdaf4

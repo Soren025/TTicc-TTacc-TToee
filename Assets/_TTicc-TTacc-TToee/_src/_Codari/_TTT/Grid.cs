@@ -27,7 +27,7 @@ namespace Codari.TTT
 
         public Selection GridWinner => gridWinner;
 
-        public bool IsCurrent => TTiccTTaccTToee.Instance.CurrentGrid == coordinate;
+        public bool IsCurrent => TTTApplication.Instance.CurrentGrid == coordinate;
 
         public bool IsFull => this.All(cell => cell.Selection.IsSelected());
 
@@ -64,11 +64,11 @@ namespace Codari.TTT
         {
             gridHighlight.enabled = !IsFull
                 && (IsCurrent
-                    || (TTiccTTaccTToee.Instance.CurrentGrid.IsValid ? TTiccTTaccTToee.Instance[TTiccTTaccTToee.Instance.CurrentGrid].IsFull : false));
+                    || (TTTApplication.Instance.CurrentGrid.IsValid ? TTTApplication.Instance[TTTApplication.Instance.CurrentGrid].IsFull : false));
 
             if (gridHighlight.enabled)
             {
-                gridHighlight.color = Player.Me.IsMyTurn ? TTiccTTaccTToee.Instance.MeColor : TTiccTTaccTToee.Instance.NotMeColor;
+                gridHighlight.color = TTTPlayer.Me.IsMyTurn ? TTTApplication.Instance.MeColor : TTTApplication.Instance.NotMeColor;
             }
 
             gridWinnerIcon.enabled = gridWinner.IsSelected();
@@ -76,7 +76,7 @@ namespace Codari.TTT
             {
                 gridWinnerIcon.text = gridWinner.ToString();
 
-                Color gridWinnerIconColor = Player.Me.Team == gridWinner ? Player.Me.SelectionColor : Player.NotMe.SelectionColor;
+                Color gridWinnerIconColor = TTTPlayer.Me.Team == gridWinner ? TTTPlayer.Me.SelectionColor : TTTPlayer.NotMe.SelectionColor;
                 gridWinnerIconColor.a = 0.4f;
 
                 gridWinnerIcon.color = gridWinnerIconColor;
