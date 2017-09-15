@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.Networking;
 using UnityEngine.UI;
 
 using System.Collections;
@@ -9,7 +8,7 @@ using Codari.TTT.Network;
 
 namespace Codari.TTT
 {
-    public class TTTApplication : NetworkBehaviour, IEnumerable<Grid>
+    public class TTTApplication : MonoBehaviour, IEnumerable<Grid>
     {
         public static TTTApplication Instance { get; private set; }
 
@@ -57,22 +56,22 @@ namespace Codari.TTT
         private Selection whoGoesFirst = Selection.X;
         private Color infoBackgroundBase;
 
-        [SyncVar]
+        //[SyncVar]
         private NetworkCoordinate currentGrid = Coordinate.Invalid;
 
-        [SyncVar(hook = nameof(Hook_TurnChange))]
+        //[SyncVar(hook = nameof(Hook_TurnChange))]
         private Selection currentTurn = Selection.None;
 
-        [SyncVar]
+        //[SyncVar]
         private bool xReady = false;
 
-        [SyncVar]
+        //[SyncVar]
         private bool oReady = false;
 
-        [SyncVar]
+        //[SyncVar]
         private bool isPlaying = false;
 
-        [SyncVar(hook = nameof(Hook_OnWinnerSet))]
+        //[SyncVar(hook = nameof(Hook_OnWinnerSet))]
         private Selection currentWinner = Selection.None;
 
         private Coroutine yourTurnLoop;
@@ -123,7 +122,7 @@ namespace Codari.TTT
             }
         }
 
-        [Server]
+        //[Server]
         public void StartGame()
         {
             if (isPlaying) return;
@@ -145,7 +144,7 @@ namespace Codari.TTT
             isPlaying = true;
         }
 
-        [Server]
+        //[Server]
         public void EndGame()
         {
             isPlaying = false;
@@ -155,7 +154,7 @@ namespace Codari.TTT
             Rpc_ResetReadyToggles();
         }
 
-        [Server]
+        //[Server]
         public void SelectCell(Coordinate gridCoordinate, Coordinate cellCoordinate, Selection selection)
         {
             if (!isPlaying) return;
@@ -242,7 +241,7 @@ namespace Codari.TTT
 
         void LateUpdate()
         {
-            meReadyToggle.interactable = isClient && !isPlaying;
+            //meReadyToggle.interactable = isClient && !isPlaying;
             notMeReadyToggle.isOn = ((TTTPlayer.NotMe?.IsX ?? false) && xReady) || ((TTTPlayer.NotMe?.IsO ?? false) && oReady);
 
             meIcon.text = TTTPlayer.Me?.Team.ToString() ?? "?";
@@ -268,7 +267,7 @@ namespace Codari.TTT
 
         #region RPCs
 
-        [ClientRpc]
+        //[ClientRpc]
         private void Rpc_ResetReadyToggles()
         {
             meReadyToggle.isOn = false;

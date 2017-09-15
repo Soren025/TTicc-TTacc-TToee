@@ -105,7 +105,7 @@ namespace Codari.TTT
 
         #endregion
 
-        public sealed class Factory : Factory<TTTPlayer>
+        internal sealed class Factory : Factory<TTTPlayer>
         { }
     }
 }
