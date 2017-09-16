@@ -11,4 +11,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8008238e9dde97479aba3c1da256c09, type: 3}
   m_Name: TTicc-TTacc-TToee
   m_EditorClassIdentifier: 
-  data: []
+  data:
+  - Main Menu
+  - Menu Game Title
+  - Multiplayer Menu
+  - Options Menu
+  - Profile Menu
+  - Single Player Menu

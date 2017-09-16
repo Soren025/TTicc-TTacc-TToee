@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
 
+using Sirenix.OdinInspector;
 using Zenject;
 
 using Codari.TTT.Network;
@@ -9,11 +10,11 @@ namespace Codari.TTT.DI
 {
     internal sealed class TTTInstaller : MonoInstaller
     {
-        [SerializeField]
+        [SerializeField, BoxGroup("Prefabs")]
         private TTTApplication tttApplicationPrefab;
-        [SerializeField]
+        [SerializeField, BoxGroup("Prefabs")]
         private TTTNetworkManager tttNetworkManagerPrefab;
-        [SerializeField]
+        [SerializeField, BoxGroup("Prefabs")]
         private TTTPlayer tttPlayerPrefab;
 
         public override void InstallBindings()
