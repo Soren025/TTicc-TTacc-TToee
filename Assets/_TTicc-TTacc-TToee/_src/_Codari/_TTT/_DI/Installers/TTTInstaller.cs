@@ -43,11 +43,11 @@ namespace Codari.TTT.DI
                     .WhenInjectedInto<TTTNetworkManager>();
             }
 
-            Container.Bind<TTTProfileManager>()
-                .FromNewComponentOnNewGameObject()
-                .WithGameObjectName("TTT Profile Manager")
-                .AsSingle()
-                .NonLazy();
+            //Container.Bind<TTTProfileManager>()
+            //    .FromNewComponentOnNewGameObject()
+            //    .WithGameObjectName("TTT Profile Manager")
+            //    .AsSingle()
+            //    .NonLazy();
         }
     }
 }

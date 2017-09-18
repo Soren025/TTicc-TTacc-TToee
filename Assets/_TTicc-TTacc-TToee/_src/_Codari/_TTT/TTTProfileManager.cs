@@ -8,93 +8,105 @@ using Sirenix.OdinInspector;
 
 namespace Codari.TTT
 {
-    public sealed class TTTProfileManager : MonoBehaviour, IReadOnlyList<TTTProfile>
-    {
-        private const string ProfileListKey = "ttt_profiles";
+    //public sealed class TTTProfileManager : MonoBehaviour, IReadOnlyList<TTTProfile>
+    //{
+    //    private const string ProfileListKey = "ttt_profiles";
 
-        private const int MaxProfiles = 5;
+    //    [ReadOnly]
+    //    [SerializeField]
+    //    private List<TTTProfile> profileList = new List<TTTProfile>();
 
-        [ReadOnly]
-        [SerializeField]
-        private List<TTTProfile> profileList = new List<TTTProfile>();
+    //    private Dictionary<string, TTTProfile> profileLookup = new Dictionary<string, TTTProfile>(StringComparer.OrdinalIgnoreCase);
 
-        private Dictionary<string, TTTProfile> profileLookup = new Dictionary<string, TTTProfile>(StringComparer.OrdinalIgnoreCase);
+    //    public int ProfileCount => profileList.Count;
 
-        public int ProfileCount => profileList.Count;
+    //    public TTTProfile this[int index] => profileList[index];
 
-        public TTTProfile this[int index] => profileList[index];
+    //    public TTTProfile this[string name] => profileLookup[name];
 
-        public TTTProfile this[string name] => profileLookup[name];
+    //    public bool ProfileExistsWithName(string name) => profileLookup.ContainsKey(name);
 
-        public bool ProfileExistsWithName(string name) => profileLookup.ContainsKey(name);
+    //    public int IndexOfProfile(TTTProfile profile) => profileList.IndexOf(profile);
 
-        public void NewProfile(string name)
-        {
-            if (ProfileExistsWithName(name)) return;
+    //    public int IndexOfProfile(string name)
+    //    {
+    //        TTTProfile profile;
+    //        if (profileLookup.TryGetValue(name, out profile))
+    //        {
+    //            return IndexOfProfile(profile);
+    //        }
 
-            TTTProfile profile = new TTTProfile(name);
-            profileLookup.Add(name, profile);
+    //        return -1;
+    //    }
 
-            profileList.Add(profile);
-            profileList.Sort((p1, p2) => StringComparer.OrdinalIgnoreCase.Compare(p1, p2));
+    //    public bool TryGetProfile(string name, out TTTProfile profile) => profileLookup.TryGetValue(name, out profile);
 
-            SaveProfiles();
-        }
+    //    public void NewProfile(string name)
+    //    {
+    //        if (ProfileExistsWithName(name)) return;
 
-        public void DeleteProfile(string name)
-        {
-            if (!ProfileExistsWithName(name)) return;
+    //        TTTProfile profile = new TTTProfile(name);
+    //        profileLookup.Add(name, profile);
 
-            TTTProfile profile = profileLookup[name];
-            profileLookup.Remove(name);
-            profileList.Remove(profile);
+    //        profileList.Add(profile);
+    //        profileList.Sort((p1, p2) => StringComparer.OrdinalIgnoreCase.Compare(p1.Name, p2.Name));
 
-            SaveProfiles();
-        }
+    //        SaveProfiles();
+    //    }
 
-        private void SaveProfiles()
-        {
-            PlayerPrefs.SetString(ProfileListKey, JsonUtility.ToJson(this));
-        }
+    //    public void DeleteProfile(string name)
+    //    {
+    //        if (!ProfileExistsWithName(name)) return;
 
-        public IEnumerator<TTTProfile> GetEnumerator()
-        {
-            foreach (TTTProfile profile in profileList)
-            {
-                yield return profile;
-            }
-        }
+    //        TTTProfile profile = profileLookup[name];
+    //        profileLookup.Remove(name);
+    //        profileList.Remove(profile);
 
-        #region Unity Callbacks
+    //        SaveProfiles();
+    //    }
 
-        void Awake()
-        {
-            JsonUtility.FromJsonOverwrite(PlayerPrefs.GetString(ProfileListKey), this);
-            foreach (TTTProfile profile in profileList)
-            {
-                if (profileLookup.ContainsKey(profile.Name))
-                {
-                    Debug.LogError("Duplicate profile name: " + profile.Name);
-                    continue;
-                }
+    //    public void SaveProfiles() => PlayerPrefs.SetString(ProfileListKey, JsonUtility.ToJson(this));
 
-                profileLookup.Add(profile.Name, profile);
-            }
-        }
+    //    public IEnumerator<TTTProfile> GetEnumerator()
+    //    {
+    //        foreach (TTTProfile profile in profileList)
+    //        {
+    //            yield return profile;
+    //        }
+    //    }
 
-        void OnApplicationQuit()
-        {
-            SaveProfiles();
-        }
+    //    #region Unity Callbacks
 
-        #endregion
+    //    void Awake()
+    //    {
+    //        PlayerPrefs.DeleteAll();
 
-        #region Explicit Definitions
+    //        JsonUtility.FromJsonOverwrite(PlayerPrefs.GetString(ProfileListKey), this);
+    //        foreach (TTTProfile profile in profileList)
+    //        {
+    //            if (profileLookup.ContainsKey(profile.Name))
+    //            {
+    //                Debug.LogError("Duplicate profile name: " + profile.Name);
+    //                continue;
+    //            }
 
-        int IReadOnlyCollection<TTTProfile>.Count => ProfileCount;
+    //            profileLookup.Add(profile.Name, profile);
+    //        }
+    //    }
 
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    //    void OnApplicationQuit()
+    //    {
+    //        SaveProfiles();
+    //    }
 
-        #endregion
-    }
+    //    #endregion
+
+    //    #region Explicit Definitions
+
+    //    int IReadOnlyCollection<TTTProfile>.Count => ProfileCount;
+
+    //    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+    //    #endregion
+    //}
 }
