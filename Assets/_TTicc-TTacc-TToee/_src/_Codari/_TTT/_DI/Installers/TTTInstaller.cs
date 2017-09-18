@@ -42,6 +42,12 @@ namespace Codari.TTT.DI
                     .WithId(TTTInjectId.PlayerPrefab)
                     .WhenInjectedInto<TTTNetworkManager>();
             }
+
+            Container.Bind<TTTProfileManager>()
+                .FromNewComponentOnNewGameObject()
+                .WithGameObjectName("TTT Profile Manager")
+                .AsSingle()
+                .NonLazy();
         }
     }
 }

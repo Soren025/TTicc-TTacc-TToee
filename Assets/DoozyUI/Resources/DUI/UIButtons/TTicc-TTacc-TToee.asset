@@ -13,16 +13,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data:
   - Go To Create Match Menu
+  - Go To Direct Connect Menu
   - Go To Main Menu
   - Go To Match List
   - Go To Match List Menu
   - Go To Multiplayer Menu
+  - Go To Offline Play Menu
   - Go To Options Menu
   - Go To Profile Menu
-  - Go To Single Player Menu
   - Multiplayer
   - Options
   - Profile
-  - Quick Start Match
+  - Quick Join Match
   - Quit Application
   - Single Player

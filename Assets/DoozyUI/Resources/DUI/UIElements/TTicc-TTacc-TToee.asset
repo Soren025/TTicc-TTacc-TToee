@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Name: TTicc-TTacc-TToee
   m_EditorClassIdentifier: 
   data:
+  - Create Match Menu
   - Main Menu
   - Menu Game Title
   - Multiplayer Menu
+  - Offline Play Menu
   - Options Menu
   - Profile Menu
   - Quick Join Match Lobby
-  - Single Player Menu
