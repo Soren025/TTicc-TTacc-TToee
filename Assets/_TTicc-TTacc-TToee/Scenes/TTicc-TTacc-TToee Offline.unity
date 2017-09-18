@@ -868,7 +868,6 @@ GameObject:
   - component: {fileID: 31363291}
   - component: {fileID: 31363290}
   - component: {fileID: 31363292}
-  - component: {fileID: 31363293}
   m_Layer: 0
   m_Name: UIB - Quit Application
   m_TagString: Untagged
@@ -1531,17 +1530,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e105e643435b68d45928a85575404316, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &31363293
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 31363288}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e92a8dd71de2884d993f0e577dceea7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &39657719
@@ -7877,7 +7865,7 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1739879583}
   m_OnClick:
     m_PersistentCalls:
@@ -8027,7 +8015,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Quick Join
+  m_Text: 'Quick Start
 
 '
 --- !u!222 &944223995
@@ -8854,7 +8842,7 @@ GameObject:
   - component: {fileID: 1092779643}
   - component: {fileID: 1092779642}
   m_Layer: 0
-  m_Name: UIE - Quick Join Match Lobby
+  m_Name: UIE - Quick Start Match Lobby
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9035,7 +9023,7 @@ MonoBehaviour:
     soundAtStart: ~No Sound~
     soundAtFinish: ~No Sound~
   elementCategory: TTicc-TTacc-TToee
-  elementName: Quick Join Match Lobby
+  elementName: Quick Start Match Lobby
   LANDSCAPE: 1
   PORTRAIT: 1
   startHidden: 1
@@ -11258,7 +11246,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Back
+  m_Text: 'Cancel
 
 '
 --- !u!222 &1384955263
@@ -13097,8 +13085,9 @@ GameObject:
   - component: {fileID: 1593270734}
   - component: {fileID: 1593270736}
   - component: {fileID: 1593270735}
+  - component: {fileID: 1593270737}
   m_Layer: 0
-  m_Name: UIB - Quick Join Match
+  m_Name: UIB - Quick Start Match
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13296,7 +13285,7 @@ MonoBehaviour:
   gameEvents: []
   debug: 0
   buttonCategory: TTicc-TTacc-TToee
-  buttonName: Quick Join Match
+  buttonName: Quick Start Match
   allowMultipleClicks: 1
   deselectButtonOnClick: 1
   disableButtonInterval: 0.4
@@ -13495,7 +13484,7 @@ MonoBehaviour:
     addToNavigationHistory: 0
     show:
     - category: TTicc-TTacc-TToee
-      name: Quick Join Match Lobby
+      name: Quick Start Match Lobby
     hide:
     - category: TTicc-TTacc-TToee
       name: Menu Game Title
@@ -13756,6 +13745,17 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &1593270737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1593270733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66d4a96a78beb3341b1e0812212d3bf6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1622980161
 GameObject:
   m_ObjectHideFlags: 0
@@ -15197,6 +15197,7 @@ GameObject:
   - component: {fileID: 1817915258}
   - component: {fileID: 1817915260}
   - component: {fileID: 1817915259}
+  - component: {fileID: 1817915261}
   m_Layer: 0
   m_Name: UIB - Go To Multiplayer Menu
   m_TagString: Untagged
@@ -15600,7 +15601,7 @@ MonoBehaviour:
       name: Multiplayer Menu
     hide:
     - category: TTicc-TTacc-TToee
-      name: Quick Join Match Lobby
+      name: Quick Start Match Lobby
   useOnDoubleClick: 0
   waitForOnDoubleClickAnimation: 1
   doubleClickRegisterInterval: 0.2
@@ -15856,6 +15857,17 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &1817915261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1817915257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e92a8dd71de2884d993f0e577dceea7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1863244627
 GameObject:
   m_ObjectHideFlags: 0
@@ -16968,7 +16980,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2091389162}
   m_Layer: 0
-  m_Name: UIB - Quick Join Match (Container)
+  m_Name: UIB - Quick Start Match (Container)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

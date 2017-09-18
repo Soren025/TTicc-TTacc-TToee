@@ -58,6 +58,8 @@ MonoBehaviour:
     type: 2}
   tttPlayerPrefab: {fileID: 114349767228549998, guid: 979fcf54af1eb89428eb4bda56166043,
     type: 2}
+  uiManagerPrefab: {fileID: 114273150010905364, guid: 069c79bb3a4e8204e8fbc04ad0009ae6,
+    type: 2}
 --- !u!114 &114736760058682744
 MonoBehaviour:
   m_ObjectHideFlags: 1

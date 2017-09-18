@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
 
+using DoozyUI;
 using Sirenix.OdinInspector;
 using Zenject;
 
@@ -16,6 +17,8 @@ namespace Codari.TTT.DI
         private TTTNetworkManager tttNetworkManagerPrefab;
         [SerializeField, BoxGroup("Prefabs")]
         private TTTPlayer tttPlayerPrefab;
+        [SerializeField, BoxGroup("Prefabs")]
+        private UIManager uiManagerPrefab;
 
         public override void InstallBindings()
         {
@@ -41,6 +44,16 @@ namespace Codari.TTT.DI
                 Container.BindInstance(tttPlayerPrefab.GetComponent<NetworkIdentity>().assetId)
                     .WithId(TTTInjectId.PlayerPrefab)
                     .WhenInjectedInto<TTTNetworkManager>();
+
+                // UI Manager
+                {
+                    // Done like this because it sets it self to `DontDestroyOnLoad` causing a warning
+                    // do to Zenject childing it under the `ProjectContext`.
+                    UIManager uiManager = Instantiate(uiManagerPrefab);
+                    uiManager.name = "UI Manager";
+
+                    Container.BindInstance(uiManager).AsSingle();
+                }
             }
 
             //Container.Bind<TTTProfileManager>()

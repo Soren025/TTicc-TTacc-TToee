@@ -89,6 +89,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 490c78ed3279eba42a5f8a5fe316e81a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  masterVolume: 1
+  masterVolume: 0.2
   masterPitch: 1
   numberOfChannels: 20

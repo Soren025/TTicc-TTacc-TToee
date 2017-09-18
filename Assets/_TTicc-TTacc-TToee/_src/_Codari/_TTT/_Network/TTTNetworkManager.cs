@@ -17,25 +17,41 @@ namespace Codari.TTT.Network
         [Inject(Id = TTTInjectId.PlayerPrefab)]
         private NetworkHash128 playerAssetId;
 
-        private Coroutine quickJoinMatchCoroutine;
+        private Coroutine quickStartMatchCoroutine;
 
-        public void QuickJoinMatch()
+        public bool IsQuickStarting => quickStartMatchCoroutine != null;
+
+        public void CreateMatch(string matchName, string password = "")
         {
-            if (quickJoinMatchCoroutine != null || IsClientConnected() || NetworkServer.active) return;
-            quickJoinMatchCoroutine = StartCoroutine(Coroutine_QuickJoinMatch());
+            StartMatchMaker();
+            matchMaker.CreateMatch(matchName, 2, true, password, "", "", 0, 0, OnMatchCreate);
         }
 
-        public void CancelQuickJoinMatch()
+        public void QuickStartMatch()
         {
-            if (quickJoinMatchCoroutine == null) return;
+            if (IsQuickStarting || IsClientConnected() || NetworkServer.active) return;
+            quickStartMatchCoroutine = StartCoroutine(Coroutine_QuickJoinMatch());
+        }
+
+        public void CancelQuickStartMatch()
+        {
+            if (!IsQuickStarting) return;
             StopQuickJoinMatchCoroutine();
             StopMatchMaker();
+        }
+
+        private void StopQuickJoinMatchCoroutine()
+        {
+            StopCoroutine(quickStartMatchCoroutine);
+            quickStartMatchCoroutine = null;
         }
 
         private IEnumerator Coroutine_QuickJoinMatch()
         {
             const int PageSize = 50; // Unity Plus subscribtion only comes with 50 CCU free, so at most only 50 matches can exist.
-            const int Attempts = 5;
+            const int Attempts = 5; // Lets only make 5 attempts
+
+            StartMatchMaker();
 
             for (int i = 0; i < Attempts; i++)
             {
@@ -48,15 +64,12 @@ namespace Codari.TTT.Network
                         yield return matchMaker.JoinMatch(match.networkId, "", "", "", 0, 0, OnMatchJoined);
                     }
                 }
+
+                yield return new WaitForSeconds(0.75f + Random.Range(0f, 0.5f));
             }
 
-            quickJoinMatchCoroutine = null;
-        }
-
-        private void StopQuickJoinMatchCoroutine()
-        {
-            StopCoroutine(quickJoinMatchCoroutine);
-            quickJoinMatchCoroutine = null;
+            quickStartMatchCoroutine = null;
+            CreateMatch(TTTProfile.Local.Name + "'s Match");
         }
 
         #region Network Overrides
@@ -78,7 +91,7 @@ namespace Codari.TTT.Network
         {
             base.OnMatchJoined(success, extendedInfo, matchInfo);
 
-            if (success && quickJoinMatchCoroutine != null)
+            if (success && IsQuickStarting)
             {
                 StopQuickJoinMatchCoroutine();
             }

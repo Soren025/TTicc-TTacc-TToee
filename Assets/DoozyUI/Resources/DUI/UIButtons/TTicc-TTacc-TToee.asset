@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Name: TTicc-TTacc-TToee
   m_EditorClassIdentifier: 
   data:
+  - Change Profile Name
   - Go To Create Match Menu
   - Go To Direct Connect Menu
   - Go To Main Menu
@@ -24,7 +25,6 @@ MonoBehaviour:
   - Multiplayer
   - Options
   - Profile
-  - Quick Join Match
+  - Quick Start Match
   - Quit Application
   - Single Player
-  - Change Profile Name
