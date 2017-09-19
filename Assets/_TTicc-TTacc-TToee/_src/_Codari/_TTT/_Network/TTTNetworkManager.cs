@@ -34,6 +34,17 @@ namespace Codari.TTT.Network
             StopMatchMaker();
         }
 
+        public void LeaveMatch()
+        {
+            if (NetworkServer.active)
+                StopHost();
+            else if (IsClientConnected())
+                StopClient();
+
+            if (matchMaker != null)
+                StopMatchMaker();
+        }
+
         private void StopQuickJoinMatchCoroutine()
         {
             StopCoroutine(quickStartMatchCoroutine);
@@ -42,14 +53,11 @@ namespace Codari.TTT.Network
 
         private IEnumerator Coroutine_QuickJoinMatch()
         {
-            const int PageSize = 50; // Unity Plus subscribtion only comes with 50 CCU free, so at most only 50 matches can exist.
-            const int Attempts = 5; // Lets only make 5 attempts
-
             StartMatchMaker();
 
-            for (int i = 0; i < Attempts; i++)
+            for (int i = 0; i < 5; i++)
             {
-                yield return matchMaker.ListMatches(0, PageSize, "", true, 0, 0, OnMatchList);
+                yield return matchMaker.ListMatches(0, 50, "", true, 0, 0, OnMatchList);
 
                 foreach (var match in matches)
                 {
@@ -59,7 +67,7 @@ namespace Codari.TTT.Network
                     }
                 }
 
-                yield return new WaitForSeconds(0.75f + Random.Range(0f, 0.5f));
+                yield return new WaitForSeconds(0.5f);
             }
 
             quickStartMatchCoroutine = null;
