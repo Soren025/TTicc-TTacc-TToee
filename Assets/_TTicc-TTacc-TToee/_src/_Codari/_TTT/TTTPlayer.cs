@@ -1,15 +1,19 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
 
-using Zenject;
-
-using Codari.TTT.Network;
-
 namespace Codari.TTT
 {
     [DisallowMultipleComponent]
     public sealed class TTTPlayer : NetworkBehaviour
     {
+        //[Inject]
+        //private TTTMatch match;
+
+        void Awake()
+        {
+            print("PLAYER!");
+        }
+
         //public static TTTPlayer Me { get; private set; }
 
         //public static TTTPlayer NotMe { get; private set; }
@@ -104,8 +108,5 @@ namespace Codari.TTT
 
 
         //#endregion
-
-        internal sealed class Factory : Factory<TTTPlayer>
-        { }
     }
 }

@@ -19,7 +19,7 @@ namespace Codari.TTT.Network
                 LogFilter.currentLogLevel = (int) m_NetworkManager.logLevel;
             ShowScenes();
             ShowNetworkInfo();
-            //ShowSpawnInfo();
+            ShowSpawnInfo();
             ShowConfigInfo();
             ShowSimulatorInfo();
 
@@ -27,10 +27,6 @@ namespace Codari.TTT.Network
             {
                 m_DontDestroyOnLoadProperty.boolValue = false;
                 m_RunInBackgroundProperty.boolValue = true;
-
-                // The cached propertys is not exposed, coppied from decompiled `NetworkManagerEditor`.
-                serializedObject.FindProperty("m_PlayerPrefab").objectReferenceValue = null;
-                serializedObject.FindProperty("m_AutoCreatePlayer").boolValue = false;
             }
 
             serializedObject.ApplyModifiedProperties();

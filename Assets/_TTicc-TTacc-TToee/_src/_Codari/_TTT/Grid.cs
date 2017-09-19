@@ -9,7 +9,7 @@ using System;
 
 namespace Codari.TTT
 {
-    public sealed class Grid : NetworkBehaviour, IEnumerable<Cell>
+    public sealed class Grid : NetworkBehaviour
     {
         //[SerializeField]
         //private Coordinate coordinate;
@@ -95,14 +95,5 @@ namespace Codari.TTT
         //}
 
         //IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
-
-        IEnumerator<Cell> IEnumerable<Cell>.GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
