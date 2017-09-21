@@ -16,7 +16,7 @@ namespace Codari.TTT
     {
         public static TTTApplication Instance { get; private set; }
 
-        [RuntimeInitializeOnLoadMethod]
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         static void Init()
         {
             LoadSingleton<TTTApplication>("TTT Application");

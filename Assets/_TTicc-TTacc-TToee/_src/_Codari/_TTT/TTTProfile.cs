@@ -2,6 +2,8 @@
 
 using System;
 
+using Sirenix.OdinInspector;
+
 using Random = System.Random;
 
 namespace Codari.TTT
@@ -51,9 +53,11 @@ namespace Codari.TTT
             return (thirtyBits << 2) | twoBits;
         }
 
-        [SerializeField]
+        [ReadOnly]
+        [SerializeField, BoxGroup("Identification")]
         private uint id;
-        [SerializeField]
+        [ReadOnly]
+        [SerializeField, BoxGroup("Identification")]
         private string name;
 
         private TTTProfile(uint id, string name)
@@ -69,5 +73,15 @@ namespace Codari.TTT
             get { return name; }
             set { name = value; }
         }
+
+        #region Utility
+
+        public override string ToString() => $"{name}[{id}]";
+
+        public override int GetHashCode() => id.GetHashCode();
+
+        public override bool Equals(object obj) => obj is TTTProfile ? id == (obj as TTTProfile).id : false;
+
+        #endregion
     }
 }

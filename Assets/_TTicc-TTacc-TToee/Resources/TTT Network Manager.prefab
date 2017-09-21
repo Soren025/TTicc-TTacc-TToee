@@ -122,3 +122,7 @@ MonoBehaviour:
   matchSize: 4
   isNetworkActive: 0
   matchMaker: {fileID: 0}
+  quickStartAttempts: 5
+  quickStartAttemptDelay: 1
+  quickStartCreateMatchNotification: {fileID: 114767447933549154, guid: 15daef9fba5880f4cb224d5fdb372e7b,
+    type: 2}

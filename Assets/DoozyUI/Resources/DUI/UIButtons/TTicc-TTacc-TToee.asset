@@ -28,5 +28,6 @@ MonoBehaviour:
   - Profile
   - Quick Start Match
   - Quit Application
-  - Single Player
   - Resign Match
+  - Single Player
+  - Quick Start Create Match

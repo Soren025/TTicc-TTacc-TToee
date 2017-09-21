@@ -1,19 +1,34 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.Networking.Match;
 
 using System.Collections;
 
-using UnityEngine.Networking.Match;
+using DoozyUI;
+using Sirenix.OdinInspector;
+using System.Collections.Generic;
 
 namespace Codari.TTT.Network
 {
     public sealed class TTTNetworkManager : NetworkManager
     {
+        [Header("TTT Properties")]
+        [Range(1, 10)]
+        [SerializeField]
+        private int quickStartAttempts = 5;
+        [Range(0f, 5f)]
+        [SerializeField]
+        private float quickStartAttemptDelay = 1f;
+        [SerializeField]
+        private UINotification quickStartCreateMatchNotification;
+
         public static TTTNetworkManager Instance => singleton as TTTNetworkManager;
 
-        private Coroutine quickStartMatchCoroutine;
+        private bool isQuickStarting;
+        private int quickStartMatchIndex;
+        private int quickStartAttemptCount;
 
-        public bool IsQuickStarting => quickStartMatchCoroutine != null;
+        public bool IsQuickStarting => isQuickStarting;
 
         public void CreateMatch(string matchName, string password = "")
         {
@@ -23,15 +38,27 @@ namespace Codari.TTT.Network
 
         public void QuickStartMatch()
         {
-            if (IsQuickStarting || IsClientConnected() || NetworkServer.active) return;
-            quickStartMatchCoroutine = StartCoroutine(Coroutine_QuickJoinMatch());
+            if (isQuickStarting || IsClientConnected()) return;
+
+            isQuickStarting = true;
+            quickStartAttemptCount = 0;
+
+            StartMatchMaker();
+            QuickStart_ListMatches();
         }
 
         public void CancelQuickStartMatch()
         {
-            if (!IsQuickStarting) return;
-            StopQuickJoinMatchCoroutine();
-            StopMatchMaker();
+            if (isQuickStarting)
+            {
+                isQuickStarting = false;
+                StopMatchMaker();
+
+                if (IsInvoking(nameof(QuickStart_ListMatches)))
+                {
+                    CancelInvoke(nameof(QuickStart_ListMatches));
+                }
+            }
         }
 
         public void LeaveMatch()
@@ -45,44 +72,59 @@ namespace Codari.TTT.Network
                 StopMatchMaker();
         }
 
-        private void StopQuickJoinMatchCoroutine()
+        private void QuickStart_ListMatches()
         {
-            StopCoroutine(quickStartMatchCoroutine);
-            quickStartMatchCoroutine = null;
+            quickStartAttemptCount++;
+            matchMaker.ListMatches(0, 50, "", true, 0, 0, OnMatchList);
         }
 
-        private IEnumerator Coroutine_QuickJoinMatch()
+        private void QuickStart_AttemptToJoinNextMatch()
         {
-            StartMatchMaker();
-
-            for (int i = 0; i < 5; i++)
+            if (quickStartMatchIndex < matches.Count)
             {
-                yield return matchMaker.ListMatches(0, 50, "", true, 0, 0, OnMatchList);
-
-                foreach (var match in matches)
-                {
-                    if (match.currentSize == 1)
-                    {
-                        yield return matchMaker.JoinMatch(match.networkId, "", "", "", 0, 0, OnMatchJoined);
-                    }
-                }
-
-                yield return new WaitForSeconds(0.5f);
+                matchMaker.JoinMatch(matches[quickStartMatchIndex++].networkId, "", "", "", 0, 0, OnMatchJoined);
             }
+            else if (quickStartAttemptCount < quickStartAttempts)
+            {
+                Invoke(nameof(QuickStart_ListMatches), quickStartAttemptDelay);
+            }
+            else
+            {
+                StopMatchMaker();
+                isQuickStarting = false;
 
-            quickStartMatchCoroutine = null;
-            CreateMatch(TTTProfile.Local.Name + "'s Match");
+                UIManager.NotificationManager.ShowNotification(quickStartCreateMatchNotification.gameObject, -1f, false,
+                    "No Match Found", "There were no matches to quick join, would you like to create one instead?", null,
+                    new string[] { "Go To Multiplayer Menu", "Quick Start Create Match" }, new string[] { "No", "Yes" });
+            }
         }
 
         #region Network Overrides
 
+        public override void OnMatchList(bool success, string extendedInfo, List<MatchInfoSnapshot> matchList)
+        {
+            base.OnMatchList(success, extendedInfo, matchList);
+
+            if (isQuickStarting)
+            {
+                quickStartMatchIndex = 0;
+                QuickStart_AttemptToJoinNextMatch();
+            }
+        }
+
         public override void OnMatchJoined(bool success, string extendedInfo, MatchInfo matchInfo)
         {
-            base.OnMatchJoined(success, extendedInfo, matchInfo);
-
-            if (success && IsQuickStarting)
+            if (isQuickStarting)
             {
-                StopQuickJoinMatchCoroutine();
+                if (success)
+                {
+                    isQuickStarting = false;
+                    base.OnMatchJoined(success, extendedInfo, matchInfo);
+                }
+                else
+                {
+                    QuickStart_AttemptToJoinNextMatch();
+                }
             }
         }
 
