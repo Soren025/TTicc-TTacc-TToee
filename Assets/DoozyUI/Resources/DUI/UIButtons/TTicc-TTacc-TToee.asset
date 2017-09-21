@@ -26,8 +26,10 @@ MonoBehaviour:
   - Multiplayer
   - Options
   - Profile
+  - Quick Start Create Match
   - Quick Start Match
   - Quit Application
   - Resign Match
   - Single Player
-  - Quick Start Create Match
+  - Draw Match
+  - Match Options
