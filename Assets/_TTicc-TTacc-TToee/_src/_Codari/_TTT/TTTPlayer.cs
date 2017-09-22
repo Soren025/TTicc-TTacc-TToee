@@ -6,13 +6,34 @@ namespace Codari.TTT
     [DisallowMultipleComponent]
     public sealed class TTTPlayer : NetworkBehaviour
     {
-        //[Inject]
-        //private TTTMatch match;
+        public TTTProfile Profile => isLocalPlayer ? TTTProfile.Local : TTTProfile.Remote;
 
-        void Awake()
+        #region Unity Callbacks
+
+
+
+        #endregion
+
+        #region Network Callbacks
+
+        public override void OnStartLocalPlayer()
         {
-            print("PLAYER!");
+
         }
+
+        #endregion
+
+        #region Network Commands
+
+
+
+        #endregion
+
+        #region Network RPCs
+
+
+
+        #endregion
 
         //public static TTTPlayer Me { get; private set; }
 

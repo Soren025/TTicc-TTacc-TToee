@@ -75,14 +75,14 @@ namespace Codari.TTT.Network
         private void QuickStart_ListMatches()
         {
             quickStartAttemptCount++;
-            matchMaker.ListMatches(0, 50, "", true, 0, 0, OnMatchList);
+            matchMaker.ListMatches(0, 50, "", true, 0, 1, OnMatchList);
         }
 
         private void QuickStart_AttemptToJoinNextMatch()
         {
             if (quickStartMatchIndex < matches.Count)
             {
-                matchMaker.JoinMatch(matches[quickStartMatchIndex++].networkId, "", "", "", 0, 0, OnMatchJoined);
+                matchMaker.JoinMatch(matches[quickStartMatchIndex++].networkId, "", "", "", 0, 1, OnMatchJoined);
             }
             else if (quickStartAttemptCount < quickStartAttempts)
             {
@@ -93,6 +93,7 @@ namespace Codari.TTT.Network
                 StopMatchMaker();
                 isQuickStarting = false;
 
+                // This is really ugly, but aperently is how to do it.
                 UIManager.NotificationManager.ShowNotification(quickStartCreateMatchNotification.gameObject, -1f, false,
                     "No Match Found", "There were no matches to quick join, would you like to create one instead?", null,
                     new string[] { "Go To Multiplayer Menu", "Quick Start Create Match" }, new string[] { "No", "Yes" });
@@ -100,6 +101,34 @@ namespace Codari.TTT.Network
         }
 
         #region Network Overrides
+
+        public override void OnClientSceneChanged(NetworkConnection conn)
+        {
+            ClientAddPlayer(conn);
+        }
+
+        public override void OnClientConnect(NetworkConnection conn)
+        {
+            if (!clientLoadedScene)
+            {
+                ClientAddPlayer(conn);
+            }
+        }
+
+        public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId)
+        {
+            OnServerAddPlayerInternal(conn, playerControllerId, null);
+        }
+
+        public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId, NetworkReader extraMessageReader)
+        {
+            OnServerAddPlayerInternal(conn, playerControllerId, extraMessageReader);
+        }
+
+        public override void OnStopClient()
+        {
+            TTTProfile.ClearRemoteProfile();
+        }
 
         public override void OnMatchList(bool success, string extendedInfo, List<MatchInfoSnapshot> matchList)
         {
@@ -126,6 +155,28 @@ namespace Codari.TTT.Network
                     QuickStart_AttemptToJoinNextMatch();
                 }
             }
+        }
+
+        private void ClientAddPlayer(NetworkConnection conn)
+        {
+            if (conn.IsLocalConnectionToServer())
+            {
+                ClientScene.AddPlayer(conn, 0);
+            }
+            else
+            {
+                ClientScene.AddPlayer(conn, 0, new TTTProfileMessage { json = TTTProfile.Local.ToJson() });
+            }
+        }
+
+        private void OnServerAddPlayerInternal(NetworkConnection conn, short playerControllerId, NetworkReader extraMessageReader)
+        {
+            if (extraMessageReader != null && conn.IsLocalConnectionToClient())
+            {
+                TTTProfile.ParseRemoteProfile(extraMessageReader.ReadMessage<TTTProfileMessage>().json);
+            }
+
+            NetworkServer.AddPlayerForConnection(conn, Instantiate(playerPrefab).gameObject, playerControllerId);
         }
 
         #endregion

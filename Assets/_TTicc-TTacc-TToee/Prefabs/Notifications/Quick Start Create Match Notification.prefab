@@ -532,7 +532,7 @@ MonoBehaviour:
     soundAtStart: ~No Sound~
     soundAtFinish: ~No Sound~
   elementCategory: Uncategorized
-  elementName: Quick Start Create Match Notification (-160954)
+  elementName: Quick Start Create Match Notification (14852)
   LANDSCAPE: 1
   PORTRAIT: 1
   startHidden: 1
@@ -617,9 +617,9 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  inAnimationsPresetCategoryName: Basic
-  inAnimationsPresetName: Punch
-  loadInAnimationsPresetAtRuntime: 1
+  inAnimationsPresetCategoryName: Uncategorized
+  inAnimationsPresetName: DefaultPreset
+  loadInAnimationsPresetAtRuntime: 0
   inAnimationsSoundAtStart: ~No Sound~
   customInAnimationsSoundAtStart: 0
   inAnimationsSoundAtFinish: ~No Sound~
@@ -694,9 +694,9 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  outAnimationsPresetCategoryName: Basic
-  outAnimationsPresetName: Punch
-  loadOutAnimationsPresetAtRuntime: 1
+  outAnimationsPresetCategoryName: Uncategorized
+  outAnimationsPresetName: DefaultPreset
+  loadOutAnimationsPresetAtRuntime: 0
   outAnimationsSoundAtStart: ~No Sound~
   customOutAnimationsSoundAtStart: 0
   outAnimationsSoundAtFinish: ~No Sound~

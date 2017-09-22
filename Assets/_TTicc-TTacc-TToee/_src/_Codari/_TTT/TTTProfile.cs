@@ -14,8 +14,11 @@ namespace Codari.TTT
         private const string ProfileKey = "ttt_profile";
 
         private static TTTProfile local = null;
+        private static TTTProfile remote = null;
 
         public static TTTProfile Local => local ?? LoadProfile();
+
+        public static TTTProfile Remote => remote;
 
         public static TTTProfile LoadProfile()
         {
@@ -42,6 +45,16 @@ namespace Codari.TTT
                 PlayerPrefs.SetString(ProfileKey, JsonUtility.ToJson(local));
                 PlayerPrefs.Save();
             }
+        }
+
+        public static void ParseRemoteProfile(string json)
+        {
+            remote = JsonUtility.FromJson<TTTProfile>(json);
+        }
+
+        public static void ClearRemoteProfile()
+        {
+            remote = null;
         }
 
         private static uint GenerateId()
@@ -75,6 +88,8 @@ namespace Codari.TTT
         }
 
         #region Utility
+
+        public string ToJson(bool prityPrint = false) => JsonUtility.ToJson(this, prityPrint);
 
         public override string ToString() => $"{name}[{id}]";
 
