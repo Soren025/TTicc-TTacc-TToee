@@ -6,11 +6,71 @@ namespace Codari.TTT
     [DisallowMultipleComponent]
     public sealed class TTTPlayer : NetworkBehaviour
     {
+        public static TTTPlayer Local { get; private set; }
+
+        public static TTTPlayer Remote { get; private set; }
+
+        public static bool HasLocal => Local != null;
+
+        public static bool HasRemote => Remote != null;
+
+        public static bool HasTwoPlayers => HasLocal && HasRemote;
+
         public TTTProfile Profile => isLocalPlayer ? TTTProfile.Local : TTTProfile.Remote;
+
+        [SyncVar]
+        private XOIcon icon;
+        [SyncVar]
+        private bool isReady;
+
+        public bool IsLocal => this == Local;
+
+        public bool IsRemote => this == Remote;
+
+        public XOIcon Icon => icon;
+
+        public bool IsReady => isReady;
+
+        public Color IconColor => IsLocal ? TTTMatch.Instance.LocalColor : IsRemote ? TTTMatch.Instance.RemoteColor : Color.magenta;
+
+        [Server]
+        public void SetIcon(XOIcon icon)
+        {
+            if (icon != this.icon)
+            {
+                this.icon = Icon;
+            }
+        }
+
+        [Client]
+        public void SetReady(bool ready) => Cmd_SetReady(ready);
 
         #region Unity Callbacks
 
+        void Start()
+        {
+            if (isLocalPlayer)
+            {
+                Local = this;
+            }
+            else
+            {
+                Remote = this;
+            }
+        }
 
+        void OnDestroy()
+        {
+            if (isLocalPlayer)
+            {
+                Local = null;
+            }
+            else
+            {
+                Remote = null;
+                TTTProfile.ClearRemoteProfile();
+            }
+        }
 
         #endregion
 
@@ -18,20 +78,40 @@ namespace Codari.TTT
 
         public override void OnStartLocalPlayer()
         {
-
+            if (!isServer)
+            {
+                Cmd_SendProfile(TTTProfile.Local.ToJson());
+            }
         }
 
         #endregion
 
         #region Network Commands
 
+        [Command]
+        void Cmd_SendProfile(string profileJson)
+        {
+            Rpc_RecieveProfile(profileJson);
+        }
 
+        [Command]
+        void Cmd_SetReady(bool ready)
+        {
+            isReady = ready;
+        }
 
         #endregion
 
         #region Network RPCs
 
-
+        [ClientRpc]
+        void Rpc_RecieveProfile(string profileJson)
+        {
+            if (!isLocalPlayer)
+            {
+                TTTProfile.ParseRemoteProfile(profileJson);
+            }
+        }
 
         #endregion
 

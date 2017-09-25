@@ -104,30 +104,29 @@ namespace Codari.TTT.Network
 
         public override void OnClientSceneChanged(NetworkConnection conn)
         {
-            ClientAddPlayer(conn);
+            //ClientAddPlayer(conn);
+            ClientScene.AddPlayer(conn, 0);
         }
 
         public override void OnClientConnect(NetworkConnection conn)
         {
             if (!clientLoadedScene)
             {
-                ClientAddPlayer(conn);
+                //ClientAddPlayer(conn);
+                ClientScene.AddPlayer(conn, 0);
             }
         }
 
         public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId)
         {
-            OnServerAddPlayerInternal(conn, playerControllerId, null);
+            //OnServerAddPlayerInternal(conn, playerControllerId, null);
+            NetworkServer.AddPlayerForConnection(conn, Instantiate(playerPrefab).gameObject, playerControllerId);
         }
 
         public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId, NetworkReader extraMessageReader)
         {
-            OnServerAddPlayerInternal(conn, playerControllerId, extraMessageReader);
-        }
-
-        public override void OnStopClient()
-        {
-            TTTProfile.ClearRemoteProfile();
+            //OnServerAddPlayerInternal(conn, playerControllerId, extraMessageReader);
+            NetworkServer.AddPlayerForConnection(conn, Instantiate(playerPrefab).gameObject, playerControllerId);
         }
 
         public override void OnMatchList(bool success, string extendedInfo, List<MatchInfoSnapshot> matchList)
@@ -157,27 +156,27 @@ namespace Codari.TTT.Network
             }
         }
 
-        private void ClientAddPlayer(NetworkConnection conn)
-        {
-            if (conn.IsLocalConnectionToServer())
-            {
-                ClientScene.AddPlayer(conn, 0);
-            }
-            else
-            {
-                ClientScene.AddPlayer(conn, 0, new TTTProfileMessage { json = TTTProfile.Local.ToJson() });
-            }
-        }
+        //private void ClientAddPlayer(NetworkConnection conn)
+        //{
+        //    if (conn.IsLocalConnectionToServer())
+        //    {
+        //        ClientScene.AddPlayer(conn, 0);
+        //    }
+        //    else
+        //    {
+        //        ClientScene.AddPlayer(conn, 0, new TTTProfileMessage { json = TTTProfile.Local.ToJson() });
+        //    }
+        //}
 
-        private void OnServerAddPlayerInternal(NetworkConnection conn, short playerControllerId, NetworkReader extraMessageReader)
-        {
-            if (extraMessageReader != null && conn.IsLocalConnectionToClient())
-            {
-                TTTProfile.ParseRemoteProfile(extraMessageReader.ReadMessage<TTTProfileMessage>().json);
-            }
+        //private void OnServerAddPlayerInternal(NetworkConnection conn, short playerControllerId, NetworkReader extraMessageReader)
+        //{
+        //    if (extraMessageReader != null && !conn.IsLocalConnectionToClient())
+        //    {
+        //        TTTProfile.ParseRemoteProfile(extraMessageReader.ReadMessage<TTTProfileMessage>().json);
+        //    }
 
-            NetworkServer.AddPlayerForConnection(conn, Instantiate(playerPrefab).gameObject, playerControllerId);
-        }
+        //    NetworkServer.AddPlayerForConnection(conn, Instantiate(playerPrefab).gameObject, playerControllerId);
+        //}
 
         #endregion
     }

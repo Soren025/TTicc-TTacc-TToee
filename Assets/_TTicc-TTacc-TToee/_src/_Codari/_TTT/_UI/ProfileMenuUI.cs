@@ -7,7 +7,7 @@ using Sirenix.OdinInspector;
 
 namespace Codari.TTT
 {
-    public sealed class ProfileMenuManager : MonoBehaviour
+    public sealed class ProfileMenuUI : MonoBehaviour
     {
         [SerializeField]
         private Text idDisplay;
