@@ -14,6 +14,7 @@ MonoBehaviour:
   data:
   - Cell Button
   - Change Profile Name
+  - Draw Match
   - Go To Create Match Menu
   - Go To Direct Connect Menu
   - Go To Main Menu
@@ -23,6 +24,7 @@ MonoBehaviour:
   - Go To Offline Play Menu
   - Go To Options Menu
   - Go To Profile Menu
+  - Match Options
   - Multiplayer
   - Options
   - Profile
@@ -31,5 +33,4 @@ MonoBehaviour:
   - Quit Application
   - Resign Match
   - Single Player
-  - Draw Match
-  - Match Options
+  - Grid Selection

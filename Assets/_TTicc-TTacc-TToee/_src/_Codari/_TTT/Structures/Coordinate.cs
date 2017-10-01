@@ -12,37 +12,37 @@ namespace Codari.TTT
 
         public static Coordinate Invalid => new Coordinate(byte.MaxValue, byte.MaxValue);
 
-        public static Coordinate BottomLeft => new Coordinate(0, 0);
+        public static Coordinate TopLeft => new Coordinate(0, 0);
 
         public static Coordinate MiddleLeft => new Coordinate(0, 1);
 
-        public static Coordinate TopLeft => new Coordinate(0, 2);
+        public static Coordinate BottomLeft => new Coordinate(0, 2);
 
-        public static Coordinate BottomCenter => new Coordinate(1, 0);
+        public static Coordinate TopCenter => new Coordinate(1, 0);
 
         public static Coordinate MiddleCenter => new Coordinate(1, 1);
 
-        public static Coordinate TopCenter => new Coordinate(1, 2);
+        public static Coordinate BottomCenter => new Coordinate(1, 2);
 
-        public static Coordinate BottomRight => new Coordinate(2, 0);
+        public static Coordinate TopRight => new Coordinate(2, 0);
 
         public static Coordinate MiddleRight => new Coordinate(2, 1);
 
-        public static Coordinate TopRight => new Coordinate(2, 2);
+        public static Coordinate BottomRight => new Coordinate(2, 2);
 
         public static IEnumerable<Coordinate> All
         {
             get
             {
-                yield return BottomLeft;
-                yield return MiddleLeft;
                 yield return TopLeft;
-                yield return BottomCenter;
-                yield return MiddleCenter;
+                yield return MiddleLeft;
+                yield return BottomLeft;
                 yield return TopCenter;
-                yield return BottomRight;
-                yield return MiddleRight;
+                yield return MiddleCenter;
+                yield return BottomCenter;
                 yield return TopRight;
+                yield return MiddleRight;
+                yield return BottomRight;
             }
         }
 

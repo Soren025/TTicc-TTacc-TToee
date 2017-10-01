@@ -33,7 +33,7 @@ namespace Codari.TTT.Network
         public void CreateMatch(string matchName, string password = "")
         {
             StartMatchMaker();
-            matchMaker.CreateMatch(matchName, 2, true, password, "", "", 0, 0, OnMatchCreate);
+            matchMaker.CreateMatch(matchName, 2, true, password, "", "", 0, 1, OnMatchCreate);
         }
 
         public void QuickStartMatch()
@@ -115,6 +115,14 @@ namespace Codari.TTT.Network
                 //ClientAddPlayer(conn);
                 ClientScene.AddPlayer(conn, 0);
             }
+        }
+
+        public override void OnServerDisconnect(NetworkConnection conn)
+        {
+            base.OnServerDisconnect(conn);
+
+            TTTMatch.Instance.EndGame();
+            TTTPlayer.Local.SetIcon(XOIcon.None);
         }
 
         public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId)

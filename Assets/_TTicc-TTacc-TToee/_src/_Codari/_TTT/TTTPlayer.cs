@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
 
+using Codari.TTT.Network;
+
 namespace Codari.TTT
 {
     [DisallowMultipleComponent]
@@ -9,6 +11,12 @@ namespace Codari.TTT
         public static TTTPlayer Local { get; private set; }
 
         public static TTTPlayer Remote { get; private set; }
+
+        public static bool LocalReady => Local?.IsReady ?? false;
+
+        public static bool RemoteReady => Remote?.IsReady ?? false;
+
+        public static bool IsMyTurn => Local?.IsTurn ?? false;
 
         public static bool HasLocal => Local != null;
 
@@ -33,17 +41,53 @@ namespace Codari.TTT
 
         public Color IconColor => IsLocal ? TTTMatch.Instance.LocalColor : IsRemote ? TTTMatch.Instance.RemoteColor : Color.magenta;
 
+        public bool IsTurn => TTTMatch.Instance.CurrentTurn == icon;
+
+        public bool IconSelected => icon.IsSelected();
+
         [Server]
         public void SetIcon(XOIcon icon)
         {
+            print(icon + " : " + (this == Remote));
+
             if (icon != this.icon)
             {
-                this.icon = Icon;
+                this.icon = icon;
+            }
+        }
+
+        [Server]
+        public void SetOppositeIcon()
+        {
+            icon = icon.Opposite();
+        }
+
+        [Client]
+        public void SetReady(bool ready)
+        {
+            if (!TTTMatch.Instance.IsPlaying)
+            {
+                Cmd_SetReady(ready);
             }
         }
 
         [Client]
-        public void SetReady(bool ready) => Cmd_SetReady(ready);
+        public void SelectGrid(Coordinate coordinate)
+        {
+            if (TTTMatch.Instance.IsPlaying)
+            {
+                Cmd_SelectGrid(coordinate);
+            }
+        }
+
+        [Client]
+        public void SelectCell(Coordinate gridCoordinate, Coordinate cellCoordinate)
+        {
+            if (TTTMatch.Instance.IsPlaying)
+            {
+                Cmd_SelectCell(gridCoordinate, cellCoordinate);
+            }
+        }
 
         #region Unity Callbacks
 
@@ -92,12 +136,30 @@ namespace Codari.TTT
         void Cmd_SendProfile(string profileJson)
         {
             Rpc_RecieveProfile(profileJson);
+
+            if (!isLocalPlayer)
+            {
+                Local.Cmd_SendProfile(TTTProfile.Local.ToJson());
+            }
         }
 
         [Command]
         void Cmd_SetReady(bool ready)
         {
             isReady = ready;
+            TTTMatch.Instance.ReadyCheck();
+        }
+
+        [Command]
+        void Cmd_SelectGrid(NetworkCoordinate coordinate)
+        {
+            TTTMatch.Instance.SelectGrid(coordinate, icon);
+        }
+
+        [Command]
+        void Cmd_SelectCell(NetworkCoordinate gridCoordinate, NetworkCoordinate cellCoordinate)
+        {
+            TTTMatch.Instance.SelectCell(gridCoordinate, cellCoordinate, icon);
         }
 
         #endregion
