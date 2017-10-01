@@ -80,9 +80,9 @@ namespace Codari.TTT
         {
             get
             {
-                yield return BottomLeft;
-                yield return MiddleLeft;
                 yield return TopLeft;
+                yield return MiddleLeft;
+                yield return BottomLeft;
             }
         }
 
@@ -90,9 +90,9 @@ namespace Codari.TTT
         {
             get
             {
-                yield return BottomCenter;
-                yield return MiddleCenter;
                 yield return TopCenter;
+                yield return MiddleCenter;
+                yield return BottomCenter;
             }
         }
 
@@ -100,9 +100,9 @@ namespace Codari.TTT
         {
             get
             {
-                yield return BottomRight;
-                yield return MiddleRight;
                 yield return TopRight;
+                yield return MiddleRight;
+                yield return BottomRight;
             }
         }
 

@@ -2803,9 +2803,9 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  onClickPunchPresetCategory: Scale
-  onClickPunchPresetName: ClickInFast
-  loadOnClickPunchPresetAtRuntime: 1
+  onClickPunchPresetCategory: Uncategorized
+  onClickPunchPresetName: DefaultPreset
+  loadOnClickPunchPresetAtRuntime: 0
   onClickPunch:
     move:
       enabled: 0
@@ -9454,9 +9454,9 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  onClickPunchPresetCategory: Scale
-  onClickPunchPresetName: ClickInFast
-  loadOnClickPunchPresetAtRuntime: 1
+  onClickPunchPresetCategory: Uncategorized
+  onClickPunchPresetName: DefaultPreset
+  loadOnClickPunchPresetAtRuntime: 0
   onClickPunch:
     move:
       enabled: 0
@@ -11028,9 +11028,9 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  onClickPunchPresetCategory: Scale
-  onClickPunchPresetName: ClickInFast
-  loadOnClickPunchPresetAtRuntime: 1
+  onClickPunchPresetCategory: Uncategorized
+  onClickPunchPresetName: DefaultPreset
+  loadOnClickPunchPresetAtRuntime: 0
   onClickPunch:
     move:
       enabled: 0
@@ -22880,9 +22880,9 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  onClickPunchPresetCategory: Scale
-  onClickPunchPresetName: ClickInFast
-  loadOnClickPunchPresetAtRuntime: 1
+  onClickPunchPresetCategory: Uncategorized
+  onClickPunchPresetName: DefaultPreset
+  loadOnClickPunchPresetAtRuntime: 0
   onClickPunch:
     move:
       enabled: 0
@@ -28088,9 +28088,9 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  onClickPunchPresetCategory: Scale
-  onClickPunchPresetName: ClickInFast
-  loadOnClickPunchPresetAtRuntime: 1
+  onClickPunchPresetCategory: Uncategorized
+  onClickPunchPresetName: DefaultPreset
+  loadOnClickPunchPresetAtRuntime: 0
   onClickPunch:
     move:
       enabled: 0
@@ -38378,9 +38378,9 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  onClickPunchPresetCategory: Scale
-  onClickPunchPresetName: ClickInFast
-  loadOnClickPunchPresetAtRuntime: 1
+  onClickPunchPresetCategory: Uncategorized
+  onClickPunchPresetName: DefaultPreset
+  loadOnClickPunchPresetAtRuntime: 0
   onClickPunch:
     move:
       enabled: 0
@@ -44836,9 +44836,9 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  onClickPunchPresetCategory: Scale
-  onClickPunchPresetName: ClickInFast
-  loadOnClickPunchPresetAtRuntime: 1
+  onClickPunchPresetCategory: Uncategorized
+  onClickPunchPresetName: DefaultPreset
+  loadOnClickPunchPresetAtRuntime: 0
   onClickPunch:
     move:
       enabled: 0
@@ -50155,8 +50155,8 @@ MonoBehaviour:
   coordinate:
     x: 1
     y: 1
-  gridIcon: {fileID: 1108677190}
-  gridHighlight: {fileID: 1744092877}
+  gridIcon: {fileID: 1399648620}
+  gridHighlight: {fileID: 61131799}
   gridSelectionButton: {fileID: 202987394}
 --- !u!1 &1083581779
 GameObject:
@@ -67038,9 +67038,9 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  onClickPunchPresetCategory: Scale
-  onClickPunchPresetName: ClickInFast
-  loadOnClickPunchPresetAtRuntime: 1
+  onClickPunchPresetCategory: Uncategorized
+  onClickPunchPresetName: DefaultPreset
+  loadOnClickPunchPresetAtRuntime: 0
   onClickPunch:
     move:
       enabled: 0
@@ -73057,9 +73057,9 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  onClickPunchPresetCategory: Scale
-  onClickPunchPresetName: ClickInFast
-  loadOnClickPunchPresetAtRuntime: 1
+  onClickPunchPresetCategory: Uncategorized
+  onClickPunchPresetName: DefaultPreset
+  loadOnClickPunchPresetAtRuntime: 0
   onClickPunch:
     move:
       enabled: 0
