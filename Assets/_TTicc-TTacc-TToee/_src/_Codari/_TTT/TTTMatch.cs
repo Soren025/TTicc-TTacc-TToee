@@ -2,12 +2,16 @@
 using UnityEngine.UI;
 using UnityEngine.Networking;
 
+using System;
 using System.Collections.Generic;
+using System.Text;
 
 using DoozyUI;
 using Sirenix.OdinInspector;
 
 using Codari.TTT.Network;
+
+using Random = UnityEngine.Random;
 
 namespace Codari.TTT
 {
@@ -39,6 +43,16 @@ namespace Codari.TTT
         private Text iconLocal;
         [SerializeField, BoxGroup("Player UI Elements")]
         private Text iconRemote;
+        [Header("Turn Highlight")]
+        [SerializeField, BoxGroup("Player UI Elements")]
+        private Image turnHighlightLocal;
+        [SerializeField, BoxGroup("Player UI Elements")]
+        private Image turnHighlightRemote;
+        [Header("Winner Text")]
+        [SerializeField, BoxGroup("Player UI Elements")]
+        private Text winnerTextRight;
+        [SerializeField, BoxGroup("Player UI Elements")]
+        private Text winnerTextLeft;
 
         [SerializeField, BoxGroup("Menu UI Elements")]
         private UIButton drawButton;
@@ -54,6 +68,8 @@ namespace Codari.TTT
         private XOIcon currentTurn = XOIcon.None;
         [SyncVar]
         private XOIcon currentWinner = XOIcon.None;
+        [SyncVar]
+        private string winnerText = string.Empty;
 
         [SyncVar]
         private NetworkCoordinate currentGrid = Coordinate.Invalid;
@@ -170,6 +186,7 @@ namespace Codari.TTT
             whoGoesFirst = whoGoesFirst.Opposite();
             currentTurn = whoGoesFirst;
             currentWinner = XOIcon.None;
+            winnerText = string.Empty;
 
             currentGrid = Coordinate.Invalid;
 
@@ -205,6 +222,23 @@ namespace Codari.TTT
                 if (rowCount == 3)
                 {
                     currentWinner = player;
+
+                    string playerName = TTTPlayer.Local.Icon == currentWinner ? TTTPlayer.Local.Profile.Name : TTTPlayer.Remote.Profile.Name;
+                    StringBuilder winnerTextBuilder = new StringBuilder();
+
+                    foreach (char nameChar in playerName)
+                    {
+                        winnerTextBuilder.Append(nameChar).Append(Environment.NewLine);
+                    }
+
+                    winnerTextBuilder.Append(' ').Append(Environment.NewLine)
+                        .Append('W').Append(Environment.NewLine)
+                        .Append('I').Append(Environment.NewLine)
+                        .Append('N').Append(Environment.NewLine)
+                        .Append('S');
+
+                    winnerText = winnerTextBuilder.ToString();
+
                     EndGame();
                     return true;
                 }
@@ -251,6 +285,23 @@ namespace Codari.TTT
 
             iconLocal.text = TTTPlayer.Local?.Icon.ToText() ?? XOIcon.None.ToText();
             iconRemote.text = TTTPlayer.Remote?.Icon.ToText() ?? XOIcon.None.ToText();
+
+            if (currentTurn.IsSelected())
+            {
+                turnHighlightLocal.enabled = currentTurn == (TTTPlayer.Local?.Icon ?? XOIcon.None);
+                turnHighlightRemote.enabled = currentTurn == (TTTPlayer.Remote?.Icon ?? XOIcon.None);
+            }
+            else
+            {
+                turnHighlightLocal.enabled = false;
+                turnHighlightRemote.enabled = false;
+            }
+
+            winnerTextRight.enabled = currentWinner.IsSelected();
+            winnerTextLeft.enabled = currentWinner.IsSelected();
+
+            winnerTextRight.text = winnerText;
+            winnerTextLeft.text = winnerText;
         }
 
         void OnDestroy()
